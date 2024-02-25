@@ -1,0 +1,79 @@
+const fs = require("fs");
+const { promisify } = require("util");
+const { exec } = require("child_process");
+
+const writeFileAsync = promisify(fs.writeFile);
+
+async function getPackageManagerVersion(packageManager) {
+    return new Promise((resolve, reject) => {
+        const command = `${packageManager} --version`;
+
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                reject(`Error getting ${packageManager} version: ${stderr}`);
+            } else {
+                resolve(stdout.trim());
+            }
+        });
+    });
+}
+
+async function runBenchmark(packageManager, packages) {
+    console.log(`Started Benchmarking ${packageManager}...`);
+
+    const packageManagerVersion = await getPackageManagerVersion(packageManager);
+
+    console.log(`${packageManager} version: ${packageManagerVersion}`);
+
+    const results = [];
+
+    for (const pkg of packages) {
+        const startTime = Date.now();
+
+        await new Promise((resolve, reject) => {
+            const command = `${packageManager} install ${pkg}`;
+
+            exec(command, (error, stdout, stderr) => {
+                if (error) {
+                    reject(`Error installing ${pkg} using ${packageManager}: ${stderr}`);
+                } else {
+                    const endTime = Date.now();
+                    const elapsedTime = endTime - startTime;
+
+                    console.log(`${pkg} (${packageManager}): ${elapsedTime}ms`);
+
+                    results.push({
+                        package: pkg,
+                        manager: packageManager,
+                        version: packageManagerVersion,
+                        time: elapsedTime,
+                    });
+
+                    resolve();
+                }
+            });
+        });
+    }
+
+    console.log(`Benchmark for ${packageManager} complete.\n`);
+
+    return results;
+}
+
+async function main() {
+    const packagesToInstall = ["next", "react", "pm2-windows-boot"];
+
+    // Run benchmarks for npm and yarn
+    await runBenchmark("npm", packagesToInstall);
+    await runBenchmark("yarn", packagesToInstall);
+
+    const allResults = npmResults.concat(yarnResults);
+    await writeFileAsync(
+        "benchmark_results.json",
+        JSON.stringify(allResults, null, 2)
+    );
+
+    console.log("Results saved to benchmark_results.json");
+}
+
+main();

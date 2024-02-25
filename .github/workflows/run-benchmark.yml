@@ -1,0 +1,22 @@
+name: Package Manager Benchmark
+
+# Controls when the action will run.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0,15,30,45 * * * *"
+
+jobs:
+  health_check_job:
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+    runs-on: ${{ matrix.os }}
+    name: update results
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Shell Script
+        id: shell_script_run
+        run: bash ./update-results.sh
