@@ -47,7 +47,7 @@ async function runBenchmark(packageManager, packages) {
                     results.push({
                         package: pkg,
                         manager: packageManager,
-                        version: packageManagerVersion,
+                        manager_version: packageManagerVersion,
                         time: elapsedTime,
                     });
 
