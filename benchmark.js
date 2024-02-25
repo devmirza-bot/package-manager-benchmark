@@ -25,13 +25,15 @@ async function runBenchmark(packageManager, packages) {
 
     console.log(`${packageManager} version: ${packageManagerVersion}`);
 
+    const installCommand = packageManager === "yarn" ? "add" : "install";
+
     const results = [];
 
     for (const pkg of packages) {
         const startTime = Date.now();
 
         await new Promise((resolve, reject) => {
-            const command = `${packageManager} install ${pkg}`;
+            const command = `${packageManager} ${installCommand} ${pkg}`;
 
             exec(command, (error, stdout, stderr) => {
                 if (error) {
