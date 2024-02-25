@@ -1,0 +1,38 @@
+[
+  {
+    "package": "next",
+    "manager": "npm",
+    "version": "10.2.4",
+    "time": 864
+  },
+  {
+    "package": "react",
+    "manager": "npm",
+    "version": "10.2.4",
+    "time": 606
+  },
+  {
+    "package": "pm2-windows-boot",
+    "manager": "npm",
+    "version": "10.2.4",
+    "time": 587
+  },
+  {
+    "package": "next",
+    "manager": "yarn",
+    "version": "1.22.21",
+    "time": 14060
+  },
+  {
+    "package": "react",
+    "manager": "yarn",
+    "version": "1.22.21",
+    "time": 938
+  },
+  {
+    "package": "pm2-windows-boot",
+    "manager": "yarn",
+    "version": "1.22.21",
+    "time": 827
+  }
+]
