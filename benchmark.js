@@ -65,11 +65,17 @@ async function runBenchmark(packageManager, packages) {
 async function main() {
     const packagesToInstall = ["next", "react", "pm2-windows-boot"];
 
-    // Run benchmarks for npm and yarn
-    await runBenchmark("npm", packagesToInstall);
-    await runBenchmark("yarn", packagesToInstall);
+    let npmResults, yarnResults
 
-    const allResults = npmResults.concat(yarnResults);
+    try {
+        // Run benchmarks for npm and yarn
+        npmResults = await runBenchmark("npm", packagesToInstall);
+        yarnResults = await runBenchmark("yarn", packagesToInstall);
+    } catch (error) {
+        console.log(error)
+    }
+
+    const allResults = (npmResults || []).concat(yarnResults || []);
     await writeFileAsync(
         "benchmark_results.json",
         JSON.stringify(allResults, null, 2)
