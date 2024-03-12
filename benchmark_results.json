@@ -3,7 +3,7 @@
     "package": "next",
     "manager": "npm",
     "manager_version": "10.2.4",
-    "time": 827
+    "time": 857
   },
   {
     "package": "react",
@@ -15,24 +15,24 @@
     "package": "pm2-windows-boot",
     "manager": "npm",
     "manager_version": "10.2.4",
-    "time": 623
+    "time": 602
   },
   {
     "package": "next",
     "manager": "yarn",
-    "manager_version": "1.22.21",
-    "time": 14446
+    "manager_version": "1.22.22",
+    "time": 13721
   },
   {
     "package": "react",
     "manager": "yarn",
-    "manager_version": "1.22.21",
-    "time": 869
+    "manager_version": "1.22.22",
+    "time": 883
   },
   {
     "package": "pm2-windows-boot",
     "manager": "yarn",
-    "manager_version": "1.22.21",
-    "time": 807
+    "manager_version": "1.22.22",
+    "time": 1110
   }
 ]
